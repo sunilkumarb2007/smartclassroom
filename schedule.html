@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - TPGIT Vidyut</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/timetable.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-bar">
+        <button id="themeToggle" class="accessibility-btn" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <span class="tooltip">Theme</span>
+        </button>
+        <button id="highContrastBtn" class="accessibility-btn" title="High Contrast Mode" aria-label="Toggle high contrast">
+            <i class="fas fa-adjust"></i>
+            <span class="tooltip">Contrast</span>
+        </button>
+        <button id="textSizeBtn" class="accessibility-btn" title="Increase Text Size" aria-label="Increase text size">
+            <i class="fas fa-text-height"></i>
+            <span class="tooltip">Text Size</span>
+        </button>
+        <button id="keyboardShortcutsBtn" class="accessibility-btn" title="Keyboard Shortcuts" aria-label="Show keyboard shortcuts">
+            <i class="fas fa-keyboard"></i>
+            <span class="tooltip">Shortcuts</span>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="tpgit-header">
+        <div class="header-top">
+            <div class="college-brand">
+                <div class="logo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Thanthai_Periyar_Government_Institute_of_Technology_logo.png/220px-Thanthai_Periyar_Government_Institute_of_Technology_logo.png" 
+                         alt="TPGIT Logo" class="tpgit-logo">
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="college-info">
+                    <h1 class="college-name">TPGIT Academic Timetable</h1>
+                    <h2 class="system-name">Intelligent Schedule Management System</h2>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">John Doe</span>
+                        <span class="user-role">Student • CSE III Year</span>
+                    </div>
+                </div>
+                <div class="current-time">
+                    <i class="fas fa-clock"></i>
+                    <span id="liveClock">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span class="nav-text">Home</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <span class="nav-text">Dashboard</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="schedule.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <span class="nav-text">Schedule</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="faculty.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <span class="nav-text">Faculty</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="rooms.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <span class="nav-text">Classrooms</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <span class="nav-text">Settings</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="constraints.html" class="dropdown-item">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Constraints</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                        <a href="login.html" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="schedule-container">
+        <!-- Schedule Controls -->
+        <div class="schedule-controls">
+            <div class="controls-left">
+                <h1>Academic Timetable</h1>
+                <p class="subtitle">Computer Science & Engineering • III Year • Section A</p>
+            </div>
+            
+            <div class="controls-right">
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="weekly">
+                        <i class="fas fa-calendar-week"></i>
+                        Weekly View
+                    </button>
+                    <button class="view-btn" data-view="daily">
+                        <i class="fas fa-calendar-day"></i>
+                        Daily View
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                        List View
+                    </button>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="printTimetable()">
+                        <i class="fas fa-print"></i>
+                        Print
+                    </button>
+                    <button class="action-btn" onclick="exportTimetable()">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                    <button class="action-btn primary" onclick="refreshTimetable()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timetable Filters -->
+        <div class="timetable-filters">
+            <div class="filter-group">
+                <label for="departmentFilter">Department</label>
+                <select id="departmentFilter" class="filter-select">
+                    <option value="cse">Computer Science & Engineering</option>
+                    <option value="ece">Electronics & Communication</option>
+                    <option value="eee">Electrical & Electronics</option>
+                    <option value="mech">Mechanical Engineering</option>
+                    <option value="civil">Civil Engineering</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="yearFilter">Academic Year</label>
+                <select id="yearFilter" class="filter-select">
+                    <option value="1">I Year</option>
+                    <option value="2">II Year</option>
+                    <option value="3" selected>III Year</option>
+                    <option value="4">IV Year</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="sectionFilter">Section</label>
+                <select id="sectionFilter" class="filter-select">
+                    <option value="A" selected>Section A</option>
+                    <option value="B">Section B</option>
+                    <option value="C">Section C</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="weekFilter">Week</label>
+                <select id="weekFilter" class="filter-select">
+                    <option value="current" selected>Current Week</option>
+                    <option value="next">Next Week</option>
+                    <option value="1">Week 1</option>
+                    <option value="2">Week 2</option>
+                    <option value="3">Week 3</option>
+                    <option value="4">Week 4</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="typeFilter">View Mode</label>
+                <select id="typeFilter" class="filter-select">
+                    <option value="normal" selected>Normal View</option>
+                    <option value="compact">Compact View</option>
+                    <option value="detailed">Detailed View</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Subject Type Filters -->
+        <div class="type-filters">
+            <div class="type-filter active" data-type="all">
+                <div class="type-color all"></div>
+                <span>All Subjects</span>
+            </div>
+            <div class="type-filter active" data-type="theory">
+                <div class="type-color theory"></div>
+                <span>Theory</span>
+            </div>
+            <div class="type-filter active" data-type="lab">
+                <div class="type-color lab"></div>
+                <span>Laboratory</span>
+            </div>
+            <div class="type-filter active" data-type="project">
+                <div class="type-color project"></div>
+                <span>Project</span>
+            </div>
+            <div class="type-filter active" data-type="seminar">
+                <div class="type-color seminar"></div>
+                <span>Seminar</span>
+            </div>
+            <div class="type-filter active" data-type="gate">
+                <div class="type-color gate"></div>
+                <span>GATE</span>
+            </div>
+            <div class="type-filter active" data-type="practical">
+                <div class="type-color practical"></div>
+                <span>Practical</span>
+            </div>
+        </div>
+
+        <!-- Week Navigation -->
+        <div class="week-navigation">
+            <button class="nav-btn prev">
+                <i class="fas fa-chevron-left"></i>
+                Previous Week
+            </button>
+            <div class="week-info">
+                <div class="week-title">Week 12 (Current Week)</div>
+                <div class="week-dates">November 25 - November 29, 2024</div>
+            </div>
+            <button class="nav-btn next">
+                Next Week
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Timetable Container -->
+        <div class="timetable-wrapper">
+            <div id="timetableContainer" class="timetable-container">
+                <!-- Timetable will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend-container">
+            <div class="legend-title">Subject Type Legend</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color theory"></div>
+                    <span>Theory Class</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color lab"></div>
+                    <span>Laboratory Session</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color project"></div>
+                    <span>Project Work</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color seminar"></div>
+                    <span>Seminar/Guest Lecture</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color gate"></div>
+                    <span>GATE Coaching</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color practical"></div>
+                    <span>Practical Session</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color break"></div>
+                    <span>Break/Lunch</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Total Subjects</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Faculty Members</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">35</div>
+                    <div class="stat-label">Hours/Week</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-door-open"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Classrooms Used</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Panel -->
+        <div class="notifications-panel">
+            <div class="panel-header">
+                <h3><i class="fas fa-bell"></i> Recent Updates</h3>
+                <button class="mark-all-read">Mark all as read</button>
+            </div>
+            <div class="notifications-list">
+                <div class="notification-item new">
+                    <div class="notification-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Schedule Change</div>
+                        <div class="notification-message">CS301 - Data Structures class shifted to CSE-103 on Tuesday</div>
+                        <div class="notification-time">2 hours ago</div>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Guest Lecture</div>
+                        <div class="notification-message">Industry expert session on AI/ML scheduled for Thursday 2 PM</div>
+                        <div class="notification-time">1 day ago</div>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Lab Session Added</div>
+                        <div class="notification-message">Extra lab session for CS351 scheduled for Friday 3-5 PM</div>
+                        <div class="notification-time">2 days ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="tpgit-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TPGIT Vidyut</h3>
+                <p>Intelligent Academic Scheduler for Thanthai Periyar Government Institute of Technology</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Actions</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="printTimetable()"><i class="fas fa-print"></i> Print Schedule</a></li>
+                    <li><a href="#" onclick="exportTimetable()"><i class="fas fa-file-export"></i> Export as PDF</a></li>
+                    <li><a href="#" onclick="shareTimetable()"><i class="fas fa-share-alt"></i> Share Schedule</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-bar"></i> View Analytics</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> timetable@tpgit.ac.in</p>
+                    <p><i class="fas fa-phone"></i> +91 416 224 2244</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9 AM - 5 PM</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TPGIT Vidyut - Smart Academic Scheduler. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Subject Details Modal -->
+    <div id="subjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Subject Details</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="subjectDetails">
+                <!-- Subject details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Timetable</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-option" data-format="pdf">
+                        <div class="export-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="export-info">
+                            <h4>PDF Document</h4>
+                            <p>High-quality PDF suitable for printing</p>
+                        </div>
+                    </div>
+                    <div class="export-option" data-format="excel">
+                        <div class="export-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <div class="export-info">
+                            <h4>Excel Spreadsheet</h4>
+                            <p>Editable spreadsheet with all details</p>
+                        </div>
+                    </div>
+                    <div class="export-option" data-format="json">
+                        <div class="export-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="export-info">
+                            <h4>JSON Data</h4>
+                            <p>Raw data for integration with other systems</p>
+                        </div>
+                    </div>
+                    <div class="export-option" data-format="ical">
+                        <div class="export-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="export-info">
+                            <h4>iCalendar</h4>
+                            <p>Import schedule into calendar apps</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/timetable.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="data/timetable-data.js"></script>
+    
+    <script>
+        // Initialize timetable
+        let timetable;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up live clock
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Initialize timetable
+            timetable = new TimetableManager('timetableContainer', {
+                department: 'cse',
+                year: '3',
+                section: 'A',
+                viewMode: 'normal'
+            });
+            
+            // Set up filters
+            setupFilters();
+            
+            // Set up view toggles
+            setupViewToggles();
+            
+            // Set up type filters
+            setupTypeFilters();
+            
+            // Set up week navigation
+            setupWeekNavigation();
+            
+            // Initialize accessibility
+            setupAccessibility();
+        });
+        
+        function updateClock() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('liveClock').textContent = now.toLocaleTimeString('en-US', options);
+        }
+        
+        function setupFilters() {
+            const departmentFilter = document.getElementById('departmentFilter');
+            const yearFilter = document.getElementById('yearFilter');
+            const sectionFilter = document.getElementById('sectionFilter');
+            const weekFilter = document.getElementById('weekFilter');
+            const typeFilter = document.getElementById('typeFilter');
+            
+            const updateTimetable = () => {
+                timetable.updateOptions({
+                    department: departmentFilter.value,
+                    year: yearFilter.value,
+                    section: sectionFilter.value,
+                    viewMode: typeFilter.value
+                });
+            };
+            
+            departmentFilter.addEventListener('change', updateTimetable);
+            yearFilter.addEventListener('change', updateTimetable);
+            sectionFilter.addEventListener('change', updateTimetable);
+            weekFilter.addEventListener('change', updateTimetable);
+            typeFilter.addEventListener('change', updateTimetable);
+        }
+        
+        function setupViewToggles() {
+            const viewButtons = document.querySelectorAll('.view-btn');
+            viewButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    viewButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, this would switch between different views
+                    const view = this.dataset.view;
+                    if (view === 'daily') {
+                        alert('Daily view will be implemented in the full version');
+                    } else if (view === 'list') {
+                        alert('List view will be implemented in the full version');
+                    }
+                });
+            });
+        }
+        
+        function setupTypeFilters() {
+            const typeFilters = document.querySelectorAll('.type-filter');
+            typeFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    if (this.dataset.type === 'all') {
+                        // Toggle all filters
+                        const allActive = this.classList.contains('active');
+                        typeFilters.forEach(f => {
+                            if (allActive) {
+                                f.classList.remove('active');
+                            } else {
+                                f.classList.add('active');
+                            }
+                        });
+                    } else {
+                        this.classList.toggle('active');
+                    }
+                    
+                    // In a real app, this would filter the timetable
+                    const activeTypes = Array.from(document.querySelectorAll('.type-filter.active'))
+                        .map(f => f.dataset.type)
+                        .filter(type => type !== 'all');
+                    
+                    console.log('Active types:', activeTypes);
+                });
+            });
+        }
+        
+        function setupWeekNavigation() {
+            const prevBtn = document.querySelector('.nav-btn.prev');
+            const nextBtn = document.querySelector('.nav-btn.next');
+            const weekTitle = document.querySelector('.week-title');
+            const weekDates = document.querySelector('.week-dates');
+            
+            let currentWeek = 12;
+            
+            prevBtn.addEventListener('click', function() {
+                currentWeek--;
+                updateWeekDisplay();
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                currentWeek++;
+                updateWeekDisplay();
+            });
+            
+            function updateWeekDisplay() {
+                const today = new Date();
+                const startOfWeek = new Date(today);
+                startOfWeek.setDate(today.getDate() - today.getDay() + 1 + ((currentWeek - 12) * 7));
+                const endOfWeek = new Date(startOfWeek);
+                endOfWeek.setDate(startOfWeek.getDate() + 4);
+                
+                weekTitle.textContent = `Week ${currentWeek}`;
+                weekDates.textContent = `${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`;
+                
+                // Disable prev button if at first week
+                prevBtn.disabled = currentWeek <= 1;
+            }
+        }
+        
+        function printTimetable() {
+            window.print();
+        }
+        
+        function exportTimetable() {
+            const modal = document.getElementById('exportModal');
+            modal.classList.add('active');
+            
+            // Set up export options
+            const exportOptions = document.querySelectorAll('.export-option');
+            exportOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const format = this.dataset.format;
+                    
+                    // Show loading
+                    this.classList.add('loading');
+                    
+                    // Simulate export process
+                    setTimeout(() => {
+                        alert(`Exporting timetable as ${format.toUpperCase()}...\nThis feature will be fully implemented in the production version.`);
+                        modal.classList.remove('active');
+                        option.classList.remove('loading');
+                    }, 1000);
+                });
+            });
+            
+            // Close modal
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target.classList.contains('modal-close')) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+        
+        function refreshTimetable() {
+            const btn = document.querySelector('.action-btn.primary');
+            const icon = btn.querySelector('i');
+            const originalHTML = btn.innerHTML;
+            
+            // Show loading state
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+            btn.disabled = true;
+            
+            // Simulate refresh
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                
+                // Show success message
+                showToast('Timetable refreshed successfully!', 'success');
+            }, 1500);
+        }
+        
+        function shareTimetable() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My TPGIT Timetable',
+                    text: 'Check out my academic timetable at TPGIT',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    showToast('Link copied to clipboard!', 'success');
+                });
+            }
+        }
+        
+        function showToast(message, type = 'info') {
+            // Toast implementation
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+    
+    <style>
+        /* Schedule page specific styles */
+        .schedule-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        .schedule-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+        }
+        
+        .controls-left h1 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-base);
+        }
+        
+        .controls-right {
+            display: flex;
+            gap: var(--space-6);
+            align-items: center;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: var(--space-2);
+            background: var(--bg-tertiary);
+            padding: var(--space-1);
+            border-radius: var(--radius-lg);
+        }
+        
+        .view-btn {
+            padding: var(--space-2) var(--space-4);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        
+        .view-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .action-btn {
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .action-btn.primary {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .timetable-wrapper {
+            margin-bottom: var(--space-8);
+        }
+        
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            transition: transform var(--transition-fast);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--text-xl);
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-number {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .notifications-panel {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .panel-header h3 {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .notifications-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .notification-item {
+            display: flex;
+            gap: var(--space-4);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--border-light);
+            transition: background var(--transition-fast);
+        }
+        
+        .notification-item:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .notification-item.new {
+            background: rgba(0, 86, 179, 0.05);
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+        
+        .notification-item.new .notification-icon {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .notification-message {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-1);
+        }
+        
+        .notification-time {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+        }
+        
+        .export-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .export-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .export-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .export-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+            color: var(--primary-color);
+        }
+        
+        .export-info {
+            flex: 1;
+        }
+        
+        .export-info h4 {
+            margin-bottom: var(--space-1);
+            color: var(--text-primary);
+        }
+        
+        .export-info p {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-4);
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .user-role {
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .schedule-controls {
+                flex-direction: column;
+                gap: var(--space-6);
+                text-align: center;
+            }
+            
+            .controls-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .view-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .timetable-filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .type-filters {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .schedule-container {
+                padding: var(--space-4);
+            }
+            
+            .view-btn span {
+                display: none;
+            }
+            
+            .action-btn span {
+                display: none;
+            }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            z-index: var(--z-toast);
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .toast-success {
+            border-color: var(--success-color);
+            background: rgba(40, 167, 69, 0.1);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TPGIT Vidyut | Intelligent Academic Scheduler</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/timetable.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Thanthai_Periyar_Government_Institute_of_Technology_logo.png/220px-Thanthai_Periyar_Government_Institute_of_Technology_logo.png"
+    />
+  </head>
+  <body>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-bar">
+      <button
+        id="themeToggle"
+        class="accessibility-btn"
+        title="Toggle Dark/Light Mode"
+        aria-label="Toggle theme"
+      >
+        <i class="fas fa-moon"></i>
+        <span class="tooltip">Theme</span>
+      </button>
+      <button
+        id="highContrastBtn"
+        class="accessibility-btn"
+        title="High Contrast Mode"
+        aria-label="Toggle high contrast"
+      >
+        <i class="fas fa-adjust"></i>
+        <span class="tooltip">Contrast</span>
+      </button>
+      <button
+        id="textSizeBtn"
+        class="accessibility-btn"
+        title="Increase Text Size"
+        aria-label="Increase text size"
+      >
+        <i class="fas fa-text-height"></i>
+        <span class="tooltip">Text Size</span>
+      </button>
+      <button
+        id="readAloudBtn"
+        class="accessibility-btn"
+        title="Read Aloud"
+        aria-label="Read page content"
+      >
+        <i class="fas fa-volume-up"></i>
+        <span class="tooltip">Read Aloud</span>
+      </button>
+      <button
+        id="keyboardShortcutsBtn"
+        class="accessibility-btn"
+        title="Keyboard Shortcuts"
+        aria-label="Show keyboard shortcuts"
+      >
+        <i class="fas fa-keyboard"></i>
+        <span class="tooltip">Shortcuts</span>
+      </button>
+    </div>
+
+    <!-- Quick Actions Bar -->
+    <div class="quick-actions-bar">
+      <div class="quick-action" onclick="window.location.href='login.html'">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </div>
+      <div class="quick-action" onclick="window.location.href='schedule.html'">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Timetable</span>
+      </div>
+      <div class="quick-action" onclick="window.location.href='dashboard.html'">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="quick-action" onclick="printTimetable()">
+        <i class="fas fa-print"></i>
+        <span>Print</span>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="tpgit-header">
+      <div class="header-top">
+        <div class="college-brand">
+          <div class="logo-container">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Thanthai_Periyar_Government_Institute_of_Technology_logo.png/220px-Thanthai_Periyar_Government_Institute_of_Technology_logo.png"
+              alt="TPGIT Logo"
+              class="tpgit-logo"
+            />
+            <div class="logo-glow"></div>
+          </div>
+          <div class="college-info">
+            <h1 class="college-name">
+              Thanthai Periyar Government Institute of Technology
+            </h1>
+            <h2 class="system-name">
+              TPGIT Vidyut - Intelligent Academic Scheduler
+            </h2>
+            <p class="college-motto">"Excellence in Technical Education"</p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="current-time">
+            <i class="fas fa-clock"></i>
+            <span id="liveClock">Loading...</span>
+          </div>
+          <div class="academic-session">
+            <i class="fas fa-calendar-day"></i>
+            <span>Academic Year: 2024-2025 | Odd Semester</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li class="nav-item active">
+            <a href="index.html" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-home"></i>
+              </div>
+              <span class="nav-text">Home</span>
+              <div class="nav-indicator"></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-sign-in-alt"></i>
+              </div>
+              <span class="nav-text">Login</span>
+              <div class="nav-indicator"></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-tachometer-alt"></i>
+              </div>
+              <span class="nav-text">Dashboard</span>
+              <div class="nav-indicator"></div>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="schedule.html" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <span class="nav-text">Schedule</span>
+              <i class="fas fa-chevron-down dropdown-arrow"></i>
+              <div class="nav-indicator"></div>
+            </a>
+            <div class="dropdown-menu">
+              <a href="schedule.html" class="dropdown-item">
+                <i class="fas fa-table"></i>
+                <span>View Timetable</span>
+              </a>
+              <a href="schedule.html?action=generate" class="dropdown-item">
+                <i class="fas fa-magic"></i>
+                <span>Generate Schedule</span>
+              </a>
+              <a href="schedule.html?action=edit" class="dropdown-item">
+                <i class="fas fa-edit"></i>
+                <span>Edit Schedule</span>
+              </a>
+              <a href="#" class="dropdown-item" onclick="exportTimetable()">
+                <i class="fas fa-file-export"></i>
+                <span>Export Schedule</span>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-building"></i>
+              </div>
+              <span class="nav-text">Departments</span>
+              <i class="fas fa-chevron-down dropdown-arrow"></i>
+              <div class="nav-indicator"></div>
+            </a>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item dept-cse">
+                <i class="fas fa-laptop-code"></i>
+                <span>Computer Science & Engineering</span>
+              </a>
+              <a href="#" class="dropdown-item dept-ece">
+                <i class="fas fa-microchip"></i>
+                <span>Electronics & Communication</span>
+              </a>
+              <a href="#" class="dropdown-item dept-eee">
+                <i class="fas fa-bolt"></i>
+                <span>Electrical & Electronics</span>
+              </a>
+              <a href="#" class="dropdown-item dept-mech">
+                <i class="fas fa-cogs"></i>
+                <span>Mechanical Engineering</span>
+              </a>
+              <a href="#" class="dropdown-item dept-civil">
+                <i class="fas fa-hard-hat"></i>
+                <span>Civil Engineering</span>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="faculty.html" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </div>
+              <span class="nav-text">Faculty</span>
+              <div class="nav-indicator"></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="rooms.html" class="nav-link">
+              <div class="nav-icon">
+                <i class="fas fa-door-open"></i>
+              </div>
+              <span class="nav-text">Classrooms</span>
+              <div class="nav-indicator"></div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-background">
+        <div class="gradient-overlay"></div>
+        <div class="particles-container" id="particles"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            <span class="title-gradient">Intelligent Timetable</span>
+            <span class="title-highlight">Scheduling System</span>
+          </h1>
+          <p class="hero-subtitle">
+            AI-powered academic scheduling solution optimizing resources,
+            minimizing conflicts, and enhancing learning experience at TPGIT
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-number">5</div>
+              <div class="stat-label">Departments</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">150+</div>
+              <div class="stat-label">Faculty</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">2000+</div>
+              <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">98.7%</div>
+              <div class="stat-label">Efficiency</div>
+            </div>
+          </div>
+
+          <div class="hero-buttons">
+            <a href="login.html" class="btn btn-primary btn-lg btn-glow">
+              <i class="fas fa-rocket"></i>
+              <span>Get Started Now</span>
+              <div class="btn-wave"></div>
+            </a>
+            <a href="#features" class="btn btn-secondary btn-lg">
+              <i class="fas fa-info-circle"></i>
+              <span>Explore Features</span>
+            </a>
+            <a href="#preview" class="btn btn-outline btn-lg">
+              <i class="fas fa-eye"></i>
+              <span>Live Preview</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="floating-timetable" id="floatingTimetable">
+            <!-- Floating timetable will be generated here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
+        <p>Scroll to explore</p>
+      </div>
+    </section>
+
+    <!-- Live Preview Section -->
+    <section class="preview-section" id="preview">
+      <div class="section-header">
+        <h2 class="section-title">Interactive Timetable Preview</h2>
+        <p class="section-subtitle">
+          Experience our perfectly symmetrical, color-coded timetable system
+        </p>
+      </div>
+
+      <div class="preview-controls">
+        <div class="control-group">
+          <label for="deptSelect">Department:</label>
+          <select id="deptSelect" class="form-select">
+            <option value="cse">Computer Science & Engineering</option>
+            <option value="ece">Electronics & Communication</option>
+            <option value="eee">Electrical & Electronics</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="civil">Civil Engineering</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="yearSelect">Academic Year:</label>
+          <select id="yearSelect" class="form-select">
+            <option value="1">I Year</option>
+            <option value="2">II Year</option>
+            <option value="3">III Year</option>
+            <option value="4">IV Year</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="sectionSelect">Section:</label>
+          <select id="sectionSelect" class="form-select">
+            <option value="A">Section A</option>
+            <option value="B">Section B</option>
+            <option value="C">Section C</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <button class="btn btn-primary" onclick="loadPreviewTimetable()">
+            <i class="fas fa-sync-alt"></i> Load Timetable
+          </button>
+        </div>
+      </div>
+
+      <div class="timetable-container" id="previewTimetableContainer">
+        <!-- Timetable will be generated here -->
+      </div>
+
+      <div class="legend-container">
+        <div class="legend-title">Subject Type Legend</div>
+        <div class="legend-items">
+          <div class="legend-item">
+            <div class="legend-color theory"></div>
+            <span>Theory</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color lab"></div>
+            <span>Laboratory</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color project"></div>
+            <span>Project</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color seminar"></div>
+            <span>Seminar</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color gate"></div>
+            <span>GATE Coaching</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color practical"></div>
+            <span>Practical</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="section-header">
+        <h2 class="section-title">Advanced Features</h2>
+        <p class="section-subtitle">
+          Designed to provide the ultimate academic scheduling experience
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+            <div class="icon-glow"></div>
+          </div>
+          <h3 class="feature-title">AI-Powered Scheduling</h3>
+          <p class="feature-description">
+            Intelligent algorithm considers 50+ constraints including faculty
+            availability, room capacity, and student preferences to generate
+            optimal timetables.
+          </p>
+          <div class="feature-tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Optimization</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-universal-access"></i>
+            <div class="icon-glow"></div>
+          </div>
+          <h3 class="feature-title">Accessibility First</h3>
+          <p class="feature-description">
+            WCAG 2.1 AA compliant with screen reader support, keyboard
+            navigation, color-blind friendly palette, and adjustable text sizes.
+          </p>
+          <div class="feature-tags">
+            <span class="tag">WCAG 2.1</span>
+            <span class="tag">Inclusive Design</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+            <div class="icon-glow"></div>
+          </div>
+          <h3 class="feature-title">Multi-Device Ready</h3>
+          <p class="feature-description">
+            Fully responsive design that works perfectly on desktop, tablet, and
+            mobile devices with touch-optimized interactions.
+          </p>
+          <div class="feature-tags">
+            <span class="tag">Responsive</span>
+            <span class="tag">PWA Ready</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-network"></i>
+            <div class="icon-glow"></div>
+          </div>
+          <h3 class="feature-title">Real-time Analytics</h3>
+          <p class="feature-description">
+            Comprehensive dashboards showing room utilization, faculty workload
+            distribution, and conflict frequency with actionable insights.
+          </p>
+          <div class="feature-tags">
+            <span class="tag">Analytics</span>
+            <span class="tag">Insights</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-sync-alt"></i>
+            <div class="icon-glow"></div>
+          </div>
+          <h3 class="feature-title">Dynamic Updates</h3>
+          <p class="feature-description">
+            Handle last-minute changes, emergency rescheduling, special events,
+            and guest lectures without disrupting the entire schedule.
+          </p>
+          <div class="feature-tags">
+            <span class="tag">Real-time</span>
+            <span class="tag">Flexible</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+            <div class="icon-glow"></div>
+          </div>
+          <h3 class="feature-title">Enterprise Security</h3>
+          <p class="feature-description">
+            Role-based access control, encrypted data transmission, audit logs,
+            and compliance with institutional data protection policies.
+          </p>
+          <div class="feature-tags">
+            <span class="tag">Security</span>
+            <span class="tag">RBAC</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <div class="section-header">
+        <h2 class="section-title">Development Team</h2>
+        <p class="section-subtitle">
+          Meet the talented developers behind TPGIT Vidyut
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar punitha">
+            <span>P</span>
+            <div class="avatar-glow"></div>
+          </div>
+          <h3 class="team-name">Punitha</h3>
+          <p class="team-role"></p>
+          <p class="team-description"></p>
+          <div class="team-skills">
+            <span class="skill"></span>
+            <span class="skill"></span>
+            <span class="skill"></span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar pavadharani">
+            <span>PA</span>
+            <div class="avatar-glow"></div>
+          </div>
+          <h3 class="team-name">Pavadharani</h3>
+          <p class="team-role"></p>
+          <p class="team-description"></p>
+          <div class="team-skills">
+            <span class="skill"></span>
+            <span class="skill"></span>
+            <span class="skill"></span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar fathima">
+            <span>FR</span>
+            <div class="avatar-glow"></div>
+          </div>
+          <h3 class="team-name">Fathima Rila</h3>
+          <p class="team-role"></p>
+          <p class="team-description"></p>
+          <div class="team-skills">
+            <span class="skill"></span>
+            <span class="skill"></span>
+            <span class="skill"></span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar keerthana">
+            <span>K</span>
+            <div class="avatar-glow"></div>
+          </div>
+          <h3 class="team-name">Keerthana</h3>
+          <p class="team-role"></p>
+          <p class="team-description"></p>
+          <div class="team-skills">
+            <span class="skill"></span>
+            <span class="skill"></span>
+            <span class="skill"></span>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar priyadharshini">
+            <span>PR</span>
+            <div class="avatar-glow"></div>
+          </div>
+          <h3 class="team-name">Priyadharshini</h3>
+          <p class="team-role"></p>
+          <p class="team-description"></p>
+          <div class="team-skills">
+            <span class="skill"></span>
+            <span class="skill"></span>
+            <span class="skill"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="tpgit-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Thanthai_Periyar_Government_Institute_of_Technology_logo.png/220px-Thanthai_Periyar_Government_Institute_of_Technology_logo.png"
+              alt="TPGIT Logo"
+              class="footer-logo-img"
+            />
+            <h3>TPGIT Vidyut</h3>
+          </div>
+          <p class="footer-description">
+            Intelligent Academic Scheduler for Thanthai Periyar Government
+            Institute of Technology, Vellore
+          </p>
+          <div class="footer-social">
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="schedule.html"
+                ><i class="fas fa-chevron-right"></i> View Schedule</a
+              >
+            </li>
+            <li>
+              <a href="faculty.html"
+                ><i class="fas fa-chevron-right"></i> Faculty Directory</a
+              >
+            </li>
+            <li>
+              <a href="rooms.html"
+                ><i class="fas fa-chevron-right"></i> Classroom Booking</a
+              >
+            </li>
+            <li>
+              <a href="constraints.html"
+                ><i class="fas fa-chevron-right"></i> Set Constraints</a
+              >
+            </li>
+            <li>
+              <a href="dashboard.html"
+                ><i class="fas fa-chevron-right"></i> Analytics Dashboard</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Departments</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="#" class="dept-link cse"
+                ><i class="fas fa-laptop-code"></i> Computer Science</a
+              >
+            </li>
+            <li>
+              <a href="#" class="dept-link ece"
+                ><i class="fas fa-microchip"></i> Electronics & Comm.</a
+              >
+            </li>
+            <li>
+              <a href="#" class="dept-link eee"
+                ><i class="fas fa-bolt"></i> Electrical & Electronics</a
+              >
+            </li>
+            <li>
+              <a href="#" class="dept-link mech"
+                ><i class="fas fa-cogs"></i> Mechanical Engg.</a
+              >
+            </li>
+            <li>
+              <a href="#" class="dept-link civil"
+                ><i class="fas fa-hard-hat"></i> Civil Engineering</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Contact Info</h4>
+          <div class="contact-info">
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Thanthai Periyar Government
+              Institute of Technology, Vellore, Tamil Nadu 632002
+            </p>
+            <p><i class="fas fa-envelope"></i> scheduler@tpgit.ac.in</p>
+            <p><i class="fas fa-phone"></i> +91 416 224 2244</p>
+            <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p>
+            &copy; 2024 TPGIT Vidyut - Smart Academic Scheduler. All rights
+            reserved.
+          </p>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="subjectModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Subject Details</h3>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="subjectDetails">
+          <!-- Subject details will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/timetable.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="data/timetable-data.js"></script>
+
+    <script>
+      // Initialize the homepage
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set up live clock
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Load floating timetable preview
+        loadFloatingTimetable();
+
+        // Load main preview timetable
+        loadPreviewTimetable();
+
+        // Initialize particles
+        initParticles();
+
+        // Set up accessibility features
+        setupAccessibility();
+
+        // Set up navigation active states
+        setupNavigation();
+
+        // Set up keyboard shortcuts
+        setupKeyboardShortcuts();
+      });
+
+      function updateClock() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        };
+        document.getElementById("liveClock").textContent =
+          now.toLocaleDateString("en-US", options);
+      }
+
+      function loadFloatingTimetable() {
+        // This would load a mini timetable preview
+        const container = document.getElementById("floatingTimetable");
+        container.innerHTML = `
+                <div class="floating-header">
+                    <h4>Today's Schedule</h4>
+                    <span>CSE - III Year - Section A</span>
+                </div>
+                <div class="floating-slots">
+                    <div class="floating-slot">
+                        <span class="slot-time">9:00 - 10:00</span>
+                        <span class="slot-subject">Data Structures</span>
+                        <span class="slot-room">CSE-101</span>
+                    </div>
+                    <div class="floating-slot">
+                        <span class="slot-time">10:00 - 11:00</span>
+                        <span class="slot-subject">Algorithms</span>
+                        <span class="slot-room">CSE-102</span>
+                    </div>
+                    <div class="floating-slot">
+                        <span class="slot-time">11:15 - 12:15</span>
+                        <span class="slot-subject">Database Systems</span>
+                        <span class="slot-room">CSE-Lab-1</span>
+                    </div>
+                    <div class="floating-slot">
+                        <span class="slot-time">2:00 - 4:00</span>
+                        <span class="slot-subject">Web Technologies Lab</span>
+                        <span class="slot-room">CSE-Lab-2</span>
+                    </div>
+                </div>
+            `;
+      }
+
+      function printTimetable() {
+        window.print();
+      }
+
+      function exportTimetable() {
+        // Export functionality would be implemented here
+        alert("Export functionality will be implemented in the full version");
+      }
+
+      function initParticles() {
+        const container = document.getElementById("particles");
+        for (let i = 0; i < 50; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.top = `${Math.random() * 100}%`;
+          particle.style.animationDelay = `${Math.random() * 5}s`;
+          container.appendChild(particle);
+        }
+      }
+    </script>
+  </body>
+</html>

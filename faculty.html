@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Directory - TPGIT Vidyut</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-bar">
+        <button id="themeToggle" class="accessibility-btn" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <span class="tooltip">Theme</span>
+        </button>
+        <button id="highContrastBtn" class="accessibility-btn" title="High Contrast Mode" aria-label="Toggle high contrast">
+            <i class="fas fa-adjust"></i>
+            <span class="tooltip">Contrast</span>
+        </button>
+        <button id="textSizeBtn" class="accessibility-btn" title="Increase Text Size" aria-label="Increase text size">
+            <i class="fas fa-text-height"></i>
+            <span class="tooltip">Text Size</span>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="tpgit-header">
+        <div class="header-top">
+            <div class="college-brand">
+                <div class="logo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Thanthai_Periyar_Government_Institute_of_Technology_logo.png/220px-Thanthai_Periyar_Government_Institute_of_Technology_logo.png" 
+                         alt="TPGIT Logo" class="tpgit-logo">
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="college-info">
+                    <h1 class="college-name">Faculty Directory</h1>
+                    <h2 class="system-name">TPGIT Academic Staff Information System</h2>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="current-time">
+                    <i class="fas fa-clock"></i>
+                    <span id="liveClock">Loading...</span>
+                </div>
+                <div class="academic-session">
+                    <i class="fas fa-users"></i>
+                    <span>150+ Faculty Members</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span class="nav-text">Home</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <span class="nav-text">Dashboard</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="schedule.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <span class="nav-text">Schedule</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="faculty.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <span class="nav-text">Faculty</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="rooms.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <span class="nav-text">Classrooms</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <span class="nav-text">Login</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="faculty-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Faculty Directory</h1>
+            <p>Comprehensive information about TPGIT's esteemed faculty members across all departments</p>
+        </div>
+
+        <!-- Department Filter -->
+        <div class="department-filter">
+            <div class="filter-header">
+                <h3><i class="fas fa-filter"></i> Filter by Department</h3>
+                <button class="clear-filter" id="clearFilter">Clear All</button>
+            </div>
+            <div class="department-tabs">
+                <button class="dept-tab active" data-dept="all">All Departments</button>
+                <button class="dept-tab dept-cse" data-dept="cse">
+                    <i class="fas fa-laptop-code"></i> Computer Science
+                </button>
+                <button class="dept-tab dept-ece" data-dept="ece">
+                    <i class="fas fa-microchip"></i> Electronics & Communication
+                </button>
+                <button class="dept-tab dept-eee" data-dept="eee">
+                    <i class="fas fa-bolt"></i> Electrical & Electronics
+                </button>
+                <button class="dept-tab dept-mech" data-dept="mech">
+                    <i class="fas fa-cogs"></i> Mechanical Engineering
+                </button>
+                <button class="dept-tab dept-civil" data-dept="civil">
+                    <i class="fas fa-hard-hat"></i> Civil Engineering
+                </button>
+            </div>
+        </div>
+
+        <!-- Search and Sort -->
+        <div class="search-sort-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="facultySearch" placeholder="Search faculty by name, designation, or specialization...">
+                <button class="search-clear" id="clearSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="sort-options">
+                <select id="sortBy" class="sort-select">
+                    <option value="name">Sort by Name (A-Z)</option>
+                    <option value="experience">Sort by Experience</option>
+                    <option value="designation">Sort by Designation</option>
+                    <option value="department">Sort by Department</option>
+                </select>
+                <button class="sort-btn" id="toggleSort">
+                    <i class="fas fa-sort-amount-down"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Faculty Grid -->
+        <div class="faculty-grid" id="facultyGrid">
+            <!-- Faculty cards will be loaded here -->
+        </div>
+
+        <!-- Statistics -->
+        <div class="faculty-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">152</div>
+                    <div class="stat-label">Total Faculty</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">PhD Holders</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Awards & Honors</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">350+</div>
+                    <div class="stat-label">Publications</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Industry Collaborations</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department Breakdown -->
+        <div class="department-breakdown">
+            <h3>Faculty Distribution by Department</h3>
+            <div class="breakdown-grid">
+                <div class="breakdown-item cse">
+                    <div class="breakdown-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Computer Science</h4>
+                    </div>
+                    <div class="breakdown-stats">
+                        <span class="faculty-count">38 Faculty</span>
+                        <span class="percentage">25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%"></div>
+                    </div>
+                </div>
+                <div class="breakdown-item ece">
+                    <div class="breakdown-header">
+                        <i class="fas fa-microchip"></i>
+                        <h4>Electronics & Comm.</h4>
+                    </div>
+                    <div class="breakdown-stats">
+                        <span class="faculty-count">32 Faculty</span>
+                        <span class="percentage">21%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 21%"></div>
+                    </div>
+                </div>
+                <div class="breakdown-item eee">
+                    <div class="breakdown-header">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Electrical & Electronics</h4>
+                    </div>
+                    <div class="breakdown-stats">
+                        <span class="faculty-count">28 Faculty</span>
+                        <span class="percentage">18%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 18%"></div>
+                    </div>
+                </div>
+                <div class="breakdown-item mech">
+                    <div class="breakdown-header">
+                        <i class="fas fa-cogs"></i>
+                        <h4>Mechanical</h4>
+                    </div>
+                    <div class="breakdown-stats">
+                        <span class="faculty-count">30 Faculty</span>
+                        <span class="percentage">20%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%"></div>
+                    </div>
+                </div>
+                <div class="breakdown-item civil">
+                    <div class="breakdown-header">
+                        <i class="fas fa-hard-hat"></i>
+                        <h4>Civil</h4>
+                    </div>
+                    <div class="breakdown-stats">
+                        <span class="faculty-count">24 Faculty</span>
+                        <span class="percentage">16%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 16%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="tpgit-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Faculty Resources</h3>
+                <p>Access faculty portals, research resources, and academic tools</p>
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-door-open"></i> Faculty Portal</a>
+                    <a href="#"><i class="fas fa-book"></i> Research Database</a>
+                    <a href="#"><i class="fas fa-calendar-check"></i> Schedule Management</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="schedule.html"><i class="fas fa-calendar-alt"></i> Academic Calendar</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> College Notices</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Performance Metrics</a></li>
+                    <li><a href="#"><i class="fas fa-handshake"></i> Industry Connect</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Faculty Office</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> faculty@tpgit.ac.in</p>
+                    <p><i class="fas fa-phone"></i> +91 416 224 2245</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Faculty Block, TPGIT Campus</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:30 AM - 4:30 PM</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TPGIT Faculty Directory. All faculty information is regularly updated.</p>
+        </div>
+    </footer>
+
+    <!-- Faculty Details Modal -->
+    <div id="facultyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Faculty Profile</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="facultyDetails">
+                <!-- Faculty details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="data/timetable-data.js"></script>
+    
+    <script>
+        // Faculty data
+        const facultyData = {
+            cse: [
+                {
+                    id: 1,
+                    name: "Dr. R. Kumar",
+                    designation: "Professor & Head of Department",
+                    department: "Computer Science & Engineering",
+                    experience: "15 years",
+                    qualification: "Ph.D. in Computer Science, IIT Madras",
+                    specialization: ["Data Structures", "Algorithms", "Machine Learning"],
+                    email: "r.kumar@tpgit.ac.in",
+                    phone: "+91 9876543210",
+                    office: "CSE Block, Room 101",
+                    schedule: "Mon, Wed, Fri: 10 AM - 4 PM",
+                    achievements: [
+                        "Best Teacher Award 2022",
+                        "50+ Research Publications",
+                        "3 Patents Filed"
+                    ],
+                    subjects: ["CS301", "CS302", "CS351"]
+                },
+                {
+                    id: 2,
+                    name: "Prof. S. Priya",
+                    designation: "Associate Professor",
+                    department: "Computer Science & Engineering",
+                    experience: "10 years",
+                    qualification: "M.Tech. in Database Systems, Anna University",
+                    specialization: ["Database Management", "Big Data Analytics", "Cloud Computing"],
+                    email: "s.priya@tpgit.ac.in",
+                    phone: "+91 9876543211",
+                    office: "CSE Block, Room 102",
+                    schedule: "Tue, Thu: 9 AM - 3 PM",
+                    achievements: [
+                        "Microsoft Certified Trainer",
+                        "15+ Journal Publications",
+                        "Industry Consultant"
+                    ],
+                    subjects: ["CS302", "CS352", "CS381"]
+                },
+                {
+                    id: 3,
+                    name: "Dr. M. Verma",
+                    designation: "Professor",
+                    department: "Computer Science & Engineering",
+                    experience: "12 years",
+                    qualification: "Ph.D. in Operating Systems, NIT Trichy",
+                    specialization: ["Operating Systems", "Computer Architecture", "Parallel Computing"],
+                    email: "m.verma@tpgit.ac.in",
+                    phone: "+91 9876543212",
+                    office: "CSE Block, Room 103",
+                    schedule: "Mon-Fri: 11 AM - 5 PM",
+                    achievements: [
+                        "Book Author - 'Advanced OS Concepts'",
+                        "30+ Conference Papers",
+                        "Guest Faculty at IIT"
+                    ],
+                    subjects: ["CS303", "CS304", "CS391"]
+                },
+                {
+                    id: 4,
+                    name: "Prof. A. Sharma",
+                    designation: "Assistant Professor",
+                    department: "Computer Science & Engineering",
+                    experience: "8 years",
+                    qualification: "M.Tech. in Networking, VIT Vellore",
+                    specialization: ["Computer Networks", "Cyber Security", "IoT"],
+                    email: "a.sharma@tpgit.ac.in",
+                    phone: "+91 9876543213",
+                    office: "CSE Block, Room 104",
+                    schedule: "Mon, Wed, Fri: 9 AM - 2 PM",
+                    achievements: [
+                        "Cisco Certified Network Professional",
+                        "10+ Research Papers",
+                        "Industry Workshop Coordinator"
+                    ],
+                    subjects: ["CS304", "CS353", "CS371"]
+                },
+                {
+                    id: 5,
+                    name: "Dr. K. Reddy",
+                    designation: "Professor",
+                    department: "Computer Science & Engineering",
+                    experience: "14 years",
+                    qualification: "Ph.D. in Software Engineering, PSG Tech",
+                    specialization: ["Software Engineering", "Web Technologies", "Agile Methodology"],
+                    email: "k.reddy@tpgit.ac.in",
+                    phone: "+91 9876543214",
+                    office: "CSE Block, Room 105",
+                    schedule: "Tue, Thu, Sat: 10 AM - 4 PM",
+                    achievements: [
+                        "Project Guide - National Level Awards",
+                        "Book Author - 'Modern Web Development'",
+                        "Industry Collaboration Lead"
+                    ],
+                    subjects: ["CS305", "CS352", "CS381"]
+                }
+            ],
+            ece: [
+                {
+                    id: 6,
+                    name: "Dr. V. Sharma",
+                    designation: "Professor & Head of Department",
+                    department: "Electronics & Communication Engineering",
+                    experience: "16 years",
+                    qualification: "Ph.D. in Signal Processing, IIT Bombay",
+                    specialization: ["Digital Signal Processing", "VLSI Design", "Embedded Systems"],
+                    email: "v.sharma@tpgit.ac.in",
+                    subjects: ["EC301", "EC302", "EC351"]
+                },
+                {
+                    id: 7,
+                    name: "Prof. M. Reddy",
+                    designation: "Associate Professor",
+                    department: "Electronics & Communication Engineering",
+                    experience: "11 years",
+                    qualification: "M.Tech. in Communication Systems, Anna University",
+                    specialization: ["Communication Systems", "Wireless Networks", "Satellite Communication"],
+                    email: "m.reddy@tpgit.ac.in",
+                    subjects: ["EC302", "EC352", "EC381"]
+                }
+            ],
+            eee: [
+                {
+                    id: 8,
+                    name: "Dr. P. Singh",
+                    designation: "Professor & Head of Department",
+                    department: "Electrical & Electronics Engineering",
+                    experience: "18 years",
+                    qualification: "Ph.D. in Power Systems, IIT Delhi",
+                    specialization: ["Power Systems", "Renewable Energy", "Smart Grid"],
+                    email: "p.singh@tpgit.ac.in",
+                    subjects: ["EE301", "EE302", "EE351"]
+                }
+            ],
+            mech: [
+                {
+                    id: 9,
+                    name: "Dr. S. Rajan",
+                    designation: "Professor & Head of Department",
+                    department: "Mechanical Engineering",
+                    experience: "20 years",
+                    qualification: "Ph.D. in Thermodynamics, IIT Kharagpur",
+                    specialization: ["Thermodynamics", "Heat Transfer", "CAD/CAM"],
+                    email: "s.rajan@tpgit.ac.in",
+                    subjects: ["ME301", "ME302", "ME351"]
+                }
+            ],
+            civil: [
+                {
+                    id: 10,
+                    name: "Dr. R. Menon",
+                    designation: "Professor & Head of Department",
+                    department: "Civil Engineering",
+                    experience: "17 years",
+                    qualification: "Ph.D. in Structural Engineering, NIT Surathkal",
+                    specialization: ["Structural Analysis", "Concrete Technology", "Earthquake Engineering"],
+                    email: "r.menon@tpgit.ac.in",
+                    subjects: ["CE301", "CE302", "CE351"]
+                }
+            ]
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up live clock
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Load faculty data
+            loadFacultyData();
+            
+            // Set up filters
+            setupFilters();
+            
+            // Set up search
+            setupSearch();
+            
+            // Set up sort
+            setupSort();
+            
+            // Initialize accessibility
+            setupAccessibility();
+        });
+        
+        function updateClock() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('liveClock').textContent = now.toLocaleTimeString('en-US', options);
+        }
+        
+        function loadFacultyData(dept = 'all') {
+            const grid = document.getElementById('facultyGrid');
+            let faculty = [];
+            
+            if (dept === 'all') {
+                // Combine all faculty
+                for (const deptKey in facultyData) {
+                    faculty = faculty.concat(facultyData[deptKey]);
+                }
+            } else {
+                faculty = facultyData[dept] || [];
+            }
+            
+            // Sort by name initially
+            faculty.sort((a, b) => a.name.localeCompare(b.name));
+            
+            // Display faculty
+            grid.innerHTML = '';
+            
+            if (faculty.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>No faculty found</h3>
+                        <p>Try changing your filters or search criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            faculty.forEach(member => {
+                const card = createFacultyCard(member);
+                grid.appendChild(card);
+            });
+        }
+        
+        function createFacultyCard(member) {
+            const card = document.createElement('div');
+            card.className = 'faculty-card';
+            card.dataset.id = member.id;
+            card.dataset.department = member.department.toLowerCase().split(' ')[0];
+            
+            // Determine department color
+            let deptClass = 'cse';
+            if (member.department.includes('Electronics')) deptClass = 'ece';
+            else if (member.department.includes('Electrical')) deptClass = 'eee';
+            else if (member.department.includes('Mechanical')) deptClass = 'mech';
+            else if (member.department.includes('Civil')) deptClass = 'civil';
+            
+            card.innerHTML = `
+                <div class="faculty-header ${deptClass}">
+                    <div class="faculty-avatar">
+                        ${member.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div class="faculty-badges">
+                        <span class="badge designation">${member.designation.split('&')[0].trim()}</span>
+                        ${member.designation.includes('Head') ? '<span class="badge hod">HOD</span>' : ''}
+                    </div>
+                </div>
+                <div class="faculty-body">
+                    <h3 class="faculty-name">${member.name}</h3>
+                    <p class="faculty-dept">${member.department}</p>
+                    
+                    <div class="faculty-info">
+                        <div class="info-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span>${member.experience} Experience</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>${member.qualification.split(',')[0]}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="faculty-specialization">
+                        <h4>Specialization</h4>
+                        <div class="specialization-tags">
+                            ${member.specialization.slice(0, 3).map(spec => 
+                                `<span class="tag">${spec}</span>`
+                            ).join('')}
+                            ${member.specialization.length > 3 ? 
+                                `<span class="tag more">+${member.specialization.length - 3} more</span>` : ''
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="faculty-footer">
+                    <button class="btn btn-outline view-profile" data-id="${member.id}">
+                        <i class="fas fa-eye"></i> View Profile
+                    </button>
+                    <button class="btn btn-primary contact-btn" data-email="${member.email}">
+                        <i class="fas fa-envelope"></i> Contact
+                    </button>
+                </div>
+            `;
+            
+            // Add click event for profile view
+            card.querySelector('.view-profile').addEventListener('click', () => {
+                showFacultyProfile(member);
+            });
+            
+            // Add click event for contact
+            card.querySelector('.contact-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.location.href = `mailto:${member.email}`;
+            });
+            
+            return card;
+        }
+        
+        function showFacultyProfile(member) {
+            const modal = document.getElementById('facultyModal');
+            const details = document.getElementById('facultyDetails');
+            
+            details.innerHTML = `
+                <div class="faculty-profile">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            ${member.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div class="profile-info">
+                            <h2>${member.name}</h2>
+                            <p class="profile-designation">${member.designation}</p>
+                            <p class="profile-department">${member.department}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-section">
+                            <h3><i class="fas fa-user-graduate"></i> Qualification</h3>
+                            <p>${member.qualification}</p>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h3><i class="fas fa-briefcase"></i> Experience & Expertise</h3>
+                            <p><strong>${member.experience}</strong> of teaching experience</p>
+                            <div class="expertise-tags">
+                                ${member.specialization.map(spec => 
+                                    `<span class="expertise-tag">${spec}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h3><i class="fas fa-book"></i> Subjects Handled</h3>
+                            <div class="subject-list">
+                                ${member.subjects.map(subject => 
+                                    `<span class="subject-tag">${subject}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        
+                        ${member.achievements ? `
+                        <div class="detail-section">
+                            <h3><i class="fas fa-award"></i> Achievements</h3>
+                            <ul class="achievement-list">
+                                ${member.achievements.map(achievement => 
+                                    `<li><i class="fas fa-star"></i> ${achievement}</li>`
+                                ).join('')}
+                            </ul>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="detail-section">
+                            <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+                            <div class="contact-details">
+                                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> ${member.email}</p>
+                                ${member.phone ? `<p><i class="fas fa-phone"></i> <strong>Phone:</strong> ${member.phone}</p>` : ''}
+                                ${member.office ? `<p><i class="fas fa-door-open"></i> <strong>Office:</strong> ${member.office}</p>` : ''}
+                                ${member.schedule ? `<p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> ${member.schedule}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='mailto:${member.email}'">
+                            <i class="fas fa-envelope"></i> Send Email
+                        </button>
+                        <button class="btn btn-outline" onclick="window.location.href='schedule.html'">
+                            <i class="fas fa-calendar-alt"></i> View Schedule
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            
+            // Close modal
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target.classList.contains('modal-close')) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+        
+        function setupFilters() {
+            const tabs = document.querySelectorAll('.dept-tab');
+            const clearBtn = document.getElementById('clearFilter');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const dept = this.dataset.dept;
+                    loadFacultyData(dept);
+                });
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelector('.dept-tab[data-dept="all"]').classList.add('active');
+                loadFacultyData('all');
+            });
+        }
+        
+        function setupSearch() {
+            const searchInput = document.getElementById('facultySearch');
+            const clearBtn = document.getElementById('clearSearch');
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.faculty-card');
+                
+                cards.forEach(card => {
+                    const name = card.querySelector('.faculty-name').textContent.toLowerCase();
+                    const dept = card.querySelector('.faculty-dept').textContent.toLowerCase();
+                    const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                    
+                    const matches = name.includes(query) || 
+                                   dept.includes(query) || 
+                                   tags.some(tag => tag.includes(query));
+                    
+                    card.style.display = matches ? 'block' : 'none';
+                });
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                const cards = document.querySelectorAll('.faculty-card');
+                cards.forEach(card => card.style.display = 'block');
+            });
+        }
+        
+        function setupSort() {
+            const sortSelect = document.getElementById('sortBy');
+            const toggleBtn = document.getElementById('toggleSort');
+            let ascending = true;
+            
+            sortSelect.addEventListener('change', sortFaculty);
+            toggleBtn.addEventListener('click', function() {
+                ascending = !ascending;
+                this.querySelector('i').className = ascending ? 
+                    'fas fa-sort-amount-down' : 'fas fa-sort-amount-up';
+                sortFaculty();
+            });
+            
+            function sortFaculty() {
+                const sortBy = sortSelect.value;
+                const cards = Array.from(document.querySelectorAll('.faculty-card'));
+                const grid = document.getElementById('facultyGrid');
+                
+                cards.sort((a, b) => {
+                    let aValue, bValue;
+                    
+                    switch(sortBy) {
+                        case 'name':
+                            aValue = a.querySelector('.faculty-name').textContent;
+                            bValue = b.querySelector('.faculty-name').textContent;
+                            break;
+                        case 'experience':
+                            aValue = parseInt(a.querySelector('.info-item span').textContent);
+                            bValue = parseInt(b.querySelector('.info-item span').textContent);
+                            break;
+                        case 'designation':
+                            aValue = a.querySelector('.badge.designation').textContent;
+                            bValue = b.querySelector('.badge.designation').textContent;
+                            break;
+                        case 'department':
+                            aValue = a.querySelector('.faculty-dept').textContent;
+                            bValue = b.querySelector('.faculty-dept').textContent;
+                            break;
+                    }
+                    
+                    if (typeof aValue === 'string') {
+                        return ascending ? 
+                            aValue.localeCompare(bValue) : 
+                            bValue.localeCompare(aValue);
+                    } else {
+                        return ascending ? aValue - bValue : bValue - aValue;
+                    }
+                });
+                
+                // Re-append cards in sorted order
+                cards.forEach(card => grid.appendChild(card));
+            }
+        }
+    </script>
+    
+    <style>
+        /* Faculty page specific styles */
+        .faculty-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .page-header h1 {
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .page-header p {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .department-filter {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--space-8);
+            overflow: hidden;
+        }
+        
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .filter-header h3 {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .clear-filter {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .department-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            padding: var(--space-4);
+            gap: var(--space-2);
+        }
+        
+        .dept-tab {
+            padding: var(--space-3) var(--space-6);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        
+        .dept-tab:hover {
+            transform: translateY(-2px);
+        }
+        
+        .dept-tab.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .dept-cse.active { background: var(--cse-color); border-color: var(--cse-color); }
+        .dept-ece.active { background: var(--ece-color); border-color: var(--ece-color); }
+        .dept-eee.active { background: var(--eee-color); border-color: var(--eee-color); }
+        .dept-mech.active { background: var(--mech-color); border-color: var(--mech-color); }
+        .dept-civil.active { background: var(--civil-color); border-color: var(--civil-color); }
+        
+        .search-sort-container {
+            display: flex;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: var(--text-base);
+            transition: all var(--transition-fast);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+        
+        .search-clear {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+        }
+        
+        .sort-options {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .sort-select {
+            padding: var(--space-4);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-width: 200px;
+        }
+        
+        .sort-btn {
+            padding: var(--space-4);
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        }
+        
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .faculty-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+        
+        .faculty-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .faculty-header {
+            padding: var(--space-6);
+            position: relative;
+        }
+        
+        .faculty-header.cse { background: linear-gradient(135deg, var(--cse-color), transparent); }
+        .faculty-header.ece { background: linear-gradient(135deg, var(--ece-color), transparent); }
+        .faculty-header.eee { background: linear-gradient(135deg, var(--eee-color), transparent); }
+        .faculty-header.mech { background: linear-gradient(135deg, var(--mech-color), transparent); }
+        .faculty-header.civil { background: linear-gradient(135deg, var(--civil-color), transparent); }
+        
+        .faculty-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--space-4);
+        }
+        
+        .faculty-badges {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .badge {
+            padding: var(--space-1) var(--space-3);
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .badge.hod {
+            background: rgba(255, 193, 7, 0.9);
+            color: var(--gray-900);
+        }
+        
+        .faculty-body {
+            padding: var(--space-6);
+        }
+        
+        .faculty-name {
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-1);
+            color: var(--text-primary);
+        }
+        
+        .faculty-dept {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+            font-size: var(--text-sm);
+        }
+        
+        .faculty-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .info-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+        
+        .faculty-specialization h4 {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .specialization-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+        
+        .tag {
+            padding: var(--space-1) var(--space-3);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+        }
+        
+        .tag.more {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .faculty-footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: var(--space-4);
+        }
+        
+        .faculty-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--text-xl);
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-number {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .department-breakdown {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+        }
+        
+        .department-breakdown h3 {
+            margin-bottom: var(--space-6);
+            text-align: center;
+            color: var(--text-primary);
+        }
+        
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .breakdown-item {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-color);
+        }
+        
+        .breakdown-item.cse { border-left: 4px solid var(--cse-color); }
+        .breakdown-item.ece { border-left: 4px solid var(--ece-color); }
+        .breakdown-item.eee { border-left: 4px solid var(--eee-color); }
+        .breakdown-item.mech { border-left: 4px solid var(--mech-color); }
+        .breakdown-item.civil { border-left: 4px solid var(--civil-color); }
+        
+        .breakdown-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+        
+        .breakdown-header i {
+            font-size: var(--text-xl);
+        }
+        
+        .breakdown-header h4 {
+            margin-bottom: 0;
+            font-size: var(--text-base);
+        }
+        
+        .breakdown-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+        
+        .faculty-count {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .percentage {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+        }
+        
+        .breakdown-item.cse .progress-fill { background: var(--cse-color); }
+        .breakdown-item.ece .progress-fill { background: var(--ece-color); }
+        .breakdown-item.eee .progress-fill { background: var(--eee-color); }
+        .breakdown-item.mech .progress-fill { background: var(--mech-color); }
+        .breakdown-item.civil .progress-fill { background: var(--civil-color); }
+        
+        /* Faculty Profile Modal */
+        .faculty-profile {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .profile-info h2 {
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .profile-designation {
+            font-size: var(--text-lg);
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: var(--space-1);
+        }
+        
+        .profile-department {
+            color: var(--text-secondary);
+        }
+        
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+        
+        .detail-section h3 {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-3);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .expertise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+        }
+        
+        .expertise-tag {
+            padding: var(--space-2) var(--space-3);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+        }
+        
+        .subject-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+        
+        .subject-tag {
+            padding: var(--space-2) var(--space-3);
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+        }
+        
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .achievement-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-2);
+            color: var(--text-secondary);
+        }
+        
+        .achievement-list i {
+            color: var(--warning-color);
+        }
+        
+        .contact-details p {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-2);
+            color: var(--text-secondary);
+        }
+        
+        .contact-details i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--text-tertiary);
+        }
+        
+        .empty-state i {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-4);
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: var(--space-2);
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .search-sort-container {
+                flex-direction: column;
+            }
+            
+            .faculty-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .department-tabs {
+                justify-content: center;
+            }
+            
+            .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .breakdown-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faculty-container {
+                padding: var(--space-4);
+            }
+            
+            .faculty-footer {
+                flex-direction: column;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>

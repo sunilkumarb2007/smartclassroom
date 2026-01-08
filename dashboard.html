@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TPGIT Vidyut</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.35.0/dist/apexcharts.css">
+</head>
+<body>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-bar">
+        <button id="themeToggle" class="accessibility-btn" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <span class="tooltip">Theme</span>
+        </button>
+        <button id="highContrastBtn" class="accessibility-btn" title="High Contrast Mode" aria-label="Toggle high contrast">
+            <i class="fas fa-adjust"></i>
+            <span class="tooltip">Contrast</span>
+        </button>
+        <button id="textSizeBtn" class="accessibility-btn" title="Increase Text Size" aria-label="Increase text size">
+            <i class="fas fa-text-height"></i>
+            <span class="tooltip">Text Size</span>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="tpgit-header">
+        <div class="header-top">
+            <div class="college-brand">
+                <div class="logo-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Thanthai_Periyar_Government_Institute_of_Technology_logo.png/220px-Thanthai_Periyar_Government_Institute_of_Technology_logo.png" 
+                         alt="TPGIT Logo" class="tpgit-logo">
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="college-info">
+                    <h1 class="college-name">Analytics Dashboard</h1>
+                    <h2 class="system-name">TPGIT Academic Performance & Insights</h2>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">Admin User</span>
+                        <span class="user-role">System Administrator</span>
+                    </div>
+                </div>
+                <div class="current-time">
+                    <i class="fas fa-clock"></i>
+                    <span id="liveClock">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span class="nav-text">Home</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="dashboard.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <span class="nav-text">Dashboard</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="schedule.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <span class="nav-text">Schedule</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="faculty.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <span class="nav-text">Faculty</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="nav-text">Reports</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        <div class="nav-indicator"></div>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Performance Analytics</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Attendance Reports</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-building"></i>
+                            <span>Resource Utilization</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user-check"></i>
+                            <span>Faculty Workload</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-link">
+                        <div class="nav-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <span class="nav-text">Logout</span>
+                        <div class="nav-indicator"></div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h1>Welcome back, Administrator</h1>
+                <p class="subtitle">Here's what's happening with your academic system today</p>
+            </div>
+            <div class="header-right">
+                <div class="date-range">
+                    <button class="date-btn active">Today</button>
+                    <button class="date-btn">This Week</button>
+                    <button class="date-btn">This Month</button>
+                    <button class="date-btn">Custom Range</button>
+                </div>
+                <button class="btn btn-primary" onclick="refreshDashboard()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="key-metrics">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3>Total Students</h3>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        12% from last month
+                    </div>
+                </div>
+                <div class="metric-value">2,154</div>
+                <div class="metric-chart" id="studentChart"></div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3>Active Faculty</h3>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        5% from last month
+                    </div>
+                </div>
+                <div class="metric-value">152</div>
+                <div class="metric-chart" id="facultyChart"></div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3>Classes Today</h3>
+                    <div class="metric-change negative">
+                        <i class="fas fa-arrow-down"></i>
+                        3% from yesterday
+                    </div>
+                </div>
+                <div class="metric-value">48</div>
+                <div class="metric-chart" id="classesChart"></div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3>Room Utilization</h3>
+                    <div class="metric-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        8% from last week
+                    </div>
+                </div>
+                <div class="metric-value">82%</div>
+                <div class="metric-chart" id="utilizationChart"></div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Department-wise Student Distribution</h3>
+                    <select class="chart-filter">
+                        <option value="current">Current Academic Year</option>
+                        <option value="2023">2023-2024</option>
+                        <option value="2022">2022-2023</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <div id="departmentChart"></div>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Faculty Workload Distribution</h3>
+                    <select class="chart-filter">
+                        <option value="weekly">Weekly Hours</option>
+                        <option value="monthly">Monthly Hours</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <div id="workloadChart"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Utilization -->
+        <div class="room-utilization">
+            <div class="section-header">
+                <h2>Classroom Utilization Analysis</h2>
+                <p>Real-time monitoring of classroom usage across campus</p>
+            </div>
+            <div class="room-grid">
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>CSE-101</h4>
+                        <span class="room-status available">Available</span>
+                    </div>
+                    <div class="room-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>Capacity: 60</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Next Class: 10:45 AM</span>
+                        </div>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="bar-label">Today's Utilization</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 65%">
+                                <span>65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>CSE-Lab-1</h4>
+                        <span class="room-status in-use">In Use</span>
+                    </div>
+                    <div class="room-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>Capacity: 30</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Current: Data Structures Lab</span>
+                        </div>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="bar-label">Today's Utilization</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 90%">
+                                <span>90%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>Seminar Hall</h4>
+                        <span class="room-status booked">Booked</span>
+                    </div>
+                    <div class="room-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>Capacity: 200</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Event: Guest Lecture at 2 PM</span>
+                        </div>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="bar-label">This Week</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 45%">
+                                <span>45%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="room-card">
+                    <div class="room-header">
+                        <h4>Project Lab</h4>
+                        <span class="room-status available">Available</span>
+                    </div>
+                    <div class="room-info">
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <span>Capacity: 40</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Next: 1:30 PM</span>
+                        </div>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="bar-label">Today's Utilization</div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 55%">
+                                <span>55%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="recent-activities">
+            <div class="section-header">
+                <h2>Recent System Activities</h2>
+                <button class="view-all">View All Logs</button>
+            </div>
+            <div class="activities-list">
+                <div class="activity-item">
+                    <div class="activity-icon success">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Schedule Updated</div>
+                        <div class="activity-desc">New lab session added for CS351 on Friday</div>
+                        <div class="activity-time">10 minutes ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Conflict Detected</div>
+                        <div class="activity-desc">Room conflict resolved for EC302 class</div>
+                        <div class="activity-time">1 hour ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon info">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">New Faculty Added</div>
+                        <div class="activity-desc">Dr. S. Nair joined CSE department</div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon success">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Report Generated</div>
+                        <div class="activity-desc">Monthly attendance report exported</div>
+                        <div class="activity-time">3 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon primary">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">System Backup</div>
+                        <div class="activity-desc">Daily backup completed successfully</div>
+                        <div class="activity-time">5 hours ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats-grid">
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">8.4/10</div>
+                    <div class="stat-label">Faculty Satisfaction</div>
+                </div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">94%</div>
+                    <div class="stat-label">Student Attendance</div>
+                </div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">99.8%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Data Security</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="tpgit-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Analytics Dashboard</h3>
+                <p>Real-time insights and performance metrics for TPGIT academic system</p>
+                <div class="footer-links">
+                    <a href="#"><i class="fas fa-download"></i> Download Reports</a>
+                    <a href="#"><i class="fas fa-cog"></i> Dashboard Settings</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Data Sources</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-database"></i> Academic Database</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Schedule System</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Attendance Records</a></li>
+                    <li><a href="#"><i class="fas fa-building"></i> Resource Management</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> analytics@tpgit.ac.in</p>
+                    <p><i class="fas fa-phone"></i> +91 416 224 2246</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Monitoring Active</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TPGIT Analytics Dashboard. Data updated: <span id="lastUpdate">Today, 9:00 AM</span></p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.35.0/dist/apexcharts.min.js"></script>
+    
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up live clock
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Initialize charts
+            initializeCharts();
+            
+            // Set up date range buttons
+            setupDateRange();
+            
+            // Set up refresh button
+            setupRefresh();
+            
+            // Initialize accessibility
+            setupAccessibility();
+            
+            // Animate metric cards
+            animateMetrics();
+        });
+        
+        function updateClock() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('liveClock').textContent = now.toLocaleTimeString('en-US', options);
+        }
+        
+        function initializeCharts() {
+            // Student growth chart
+            const studentOptions = {
+                series: [{
+                    name: 'Students',
+                    data: [1800, 1850, 1900, 1950, 2000, 2050, 2100, 2154]
+                }],
+                chart: {
+                    height: 60,
+                    type: 'area',
+                    sparkline: {
+                        enabled: true
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                colors: ['#2ecc71'],
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.3,
+                        stops: [0, 90, 100]
+                    }
+                },
+                tooltip: {
+                    enabled: false
+                }
+            };
+            
+            const studentChart = new ApexCharts(document.querySelector("#studentChart"), studentOptions);
+            studentChart.render();
+            
+            // Department distribution chart
+            const departmentOptions = {
+                series: [{
+                    name: 'Students',
+                    data: [650, 520, 480, 380, 320]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: false,
+                        columnWidth: '55%',
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: ['CSE', 'ECE', 'EEE', 'Mechanical', 'Civil'],
+                },
+                colors: ['#2e86c1', '#8e44ad', '#f39c12', '#e74c3c', '#27ae60'],
+                yaxis: {
+                    title: {
+                        text: 'Number of Students'
+                    }
+                }
+            };
+            
+            const departmentChart = new ApexCharts(document.querySelector("#departmentChart"), departmentOptions);
+            departmentChart.render();
+            
+            // Faculty workload chart
+            const workloadOptions = {
+                series: [{
+                    name: 'Theory',
+                    data: [18, 16, 20, 15, 19, 17]
+                }, {
+                    name: 'Lab',
+                    data: [12, 14, 10, 13, 11, 15]
+                }, {
+                    name: 'Projects',
+                    data: [8, 10, 6, 9, 7, 8]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    stacked: true,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '60%',
+                    },
+                },
+                colors: ['#3498db', '#2ecc71', '#9b59b6'],
+                xaxis: {
+                    categories: ['Dr. R. Kumar', 'Prof. S. Priya', 'Dr. M. Verma', 'Prof. A. Sharma', 'Dr. K. Reddy', 'Prof. N. Gupta'],
+                },
+                yaxis: {
+                    title: {
+                        text: 'Hours per Week'
+                    }
+                },
+                legend: {
+                    position: 'top'
+                }
+            };
+            
+            const workloadChart = new ApexCharts(document.querySelector("#workloadChart"), workloadOptions);
+            workloadChart.render();
+        }
+        
+        function setupDateRange() {
+            const dateButtons = document.querySelectorAll('.date-btn');
+            dateButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    dateButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, this would update the dashboard data
+                    const range = this.textContent;
+                    console.log(`Loading data for: ${range}`);
+                });
+            });
+        }
+        
+        function setupRefresh() {
+            const refreshBtn = document.querySelector('.btn-primary');
+            refreshBtn.addEventListener('click', refreshDashboard);
+        }
+        
+        function refreshDashboard() {
+            const btn = document.querySelector('.btn-primary');
+            const originalHTML = btn.innerHTML;
+            
+            // Show loading state
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+            btn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                
+                // Update last update time
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                document.getElementById('lastUpdate').textContent = `Today, ${timeString}`;
+                
+                // Show success message
+                showNotification('Dashboard refreshed successfully!', 'success');
+            }, 2000);
+        }
+        
+        function animateMetrics() {
+            const metricValues = document.querySelectorAll('.metric-value');
+            metricValues.forEach(metric => {
+                const value = metric.textContent;
+                if (value.includes('%')) {
+                    animatePercentage(metric);
+                } else {
+                    animateNumber(metric);
+                }
+            });
+        }
+        
+        function animateNumber(element) {
+            const value = parseInt(element.textContent.replace(/,/g, ''));
+            const duration = 2000;
+            const steps = 60;
+            const increment = value / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= value) {
+                    element.textContent = value.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, duration / steps);
+        }
+        
+        function animatePercentage(element) {
+            const value = parseInt(element.textContent);
+            const duration = 2000;
+            const steps = 60;
+            const increment = value / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= value) {
+                    element.textContent = value + '%';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + '%';
+                }
+            }, duration / steps);
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `dashboard-notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close">&times;</button>
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+            
+            // Close button
+            notification.querySelector('.notification-close').addEventListener('click', () => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            });
+        }
+    </script>
+    
+    <style>
+        /* Dashboard specific styles */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header-left h1 {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-base);
+        }
+        
+        .header-right {
+            display: flex;
+            gap: var(--space-6);
+            align-items: center;
+        }
+        
+        .date-range {
+            display: flex;
+            gap: var(--space-2);
+            background: var(--bg-tertiary);
+            padding: var(--space-1);
+            border-radius: var(--radius-lg);
+        }
+        
+        .date-btn {
+            padding: var(--space-2) var(--space-4);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        
+        .date-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .metric-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-fast);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-4);
+        }
+        
+        .metric-header h3 {
+            font-size: var(--text-base);
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+        
+        .metric-change {
+            font-size: var(--text-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .metric-change.positive {
+            color: var(--success-color);
+        }
+        
+        .metric-change.negative {
+            color: var(--danger-color);
+        }
+        
+        .metric-value {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .metric-chart {
+            height: 60px;
+        }
+        
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        @media (max-width: 1300px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .chart-header h3 {
+            margin-bottom: 0;
+            color: var(--text-primary);
+        }
+        
+        .chart-filter {
+            padding: var(--space-2) var(--space-3);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .chart-container {
+            padding: var(--space-4);
+        }
+        
+        .room-utilization {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .section-header h2 {
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .section-header p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+        
+        .view-all {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .room-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-fast);
+        }
+        
+        .room-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .room-header h4 {
+            margin-bottom: 0;
+            color: var(--text-primary);
+        }
+        
+        .room-status {
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+        
+        .room-status.available {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+        
+        .room-status.in-use {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .room-status.booked {
+            background: rgba(241, 196, 15, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .room-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+        }
+        
+        .info-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+        
+        .utilization-bar .bar-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .bar-container {
+            height: 10px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+            position: relative;
+            transition: width 1s ease-in-out;
+        }
+        
+        .bar-fill span {
+            position: absolute;
+            right: 8px;
+            top: -20px;
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .recent-activities {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+        }
+        
+        .activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-fast);
+        }
+        
+        .activity-item:hover {
+            transform: translateX(4px);
+        }
+        
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xl);
+        }
+        
+        .activity-icon.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+        
+        .activity-icon.warning {
+            background: rgba(241, 196, 15, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .activity-icon.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .activity-icon.primary {
+            background: rgba(0, 86, 179, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .activity-desc {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-1);
+        }
+        
+        .activity-time {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+        }
+        
+        .quick-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .stat-box {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--text-xl);
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+        
+        .dashboard-notification {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4) var(--space-6);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-4);
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease-out;
+            z-index: var(--z-toast);
+            max-width: 400px;
+        }
+        
+        .dashboard-notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .dashboard-notification.success {
+            border-color: var(--success-color);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: var(--text-lg);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .dashboard-header {
+                flex-direction: column;
+                gap: var(--space-6);
+                text-align: center;
+            }
+            
+            .header-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .date-range {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .room-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .key-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: var(--space-4);
+            }
+            
+            .chart-header {
+                flex-direction: column;
+                gap: var(--space-4);
+                align-items: flex-start;
+            }
+        }
+    </style>
+</body>
+</html>
